@@ -1,9 +1,9 @@
 package com.example.destinationapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.example.destinationapp.databinding.ActivityGuessPlayBinding
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -68,6 +68,7 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
                 mGoogleMap?.setOnMapClickListener(null)
                 setTotalScore()
                 showScore()
+                setPlace()
                 selectedPlace = null
             }
 
@@ -79,6 +80,7 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
         binding?.nextRound?.setOnClickListener {
             if( round <5) {
                 round++
+                binding?.textviewRound?.text = "$round/5"
                 correctPlace = correctPlaceList.elementAt(round - 1)
                 googleMapClass.setCorrectPlace(correctPlace)
                 streetView.setPosition(correctPlace)
@@ -100,9 +102,6 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun gameOver() {
-        Toast.makeText(this, "Game's over!", Toast.LENGTH_SHORT).show()
-    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mGoogleMap = googleMap
@@ -139,5 +138,27 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
     private var totalScore = 0
     private fun setTotalScore() {
         totalScore += getScore()
+        binding?.textviewFinalScore?.text = totalScore.toString()
+    }
+
+    private val setPlaceList = ArrayList<ParcelModel>(5)
+    private fun setPlace() {
+        val place = ParcelModel(
+            correctPlace,
+            selectedPlace,
+            getScore(),
+            googleMapClass.getRealDistance()
+        )
+        setPlaceList.add(place)
+    }
+
+    private fun gameOver() {
+        val summary = Intent(this, SummaryActivity::class.java)
+
+        summary.putExtra("totalScore", totalScore)
+        summary.putExtra("dataList", setPlaceList)
+
+        startActivity(summary)
+        finish()
     }
 }
