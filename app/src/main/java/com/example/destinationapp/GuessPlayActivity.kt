@@ -153,12 +153,12 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun gameOver() {
-        val summary = Intent(this, SummaryActivity::class.java)
+        val intent = Intent(this, SummaryActivity::class.java)
 
-        summary.putExtra("totalScore", totalScore)
-        summary.putExtra("dataList", setPlaceList)
+        intent.putExtra("totalScore", totalScore)
+        intent.putExtra("dataList", setPlaceList)
 
-        startActivity(summary)
+        startActivity(intent)
         finish()
     }
 }
