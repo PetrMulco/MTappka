@@ -44,21 +44,6 @@
         app:layout_constraintTop_toBottomOf="@+id/guessPlaceButton"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/playWithFriend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/guess_button"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:text="Play with friend"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/guessCountryButton"
-        />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
