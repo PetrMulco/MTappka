@@ -38,6 +38,8 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
         correctPlaceList = FamousPlaces.getFamousPlaceList()
         correctPlace = correctPlaceList.first()
 
+        //manipuluje s referenciami na GoogleMap a StreetView pre zobrazovanie miest, ulic, a taktiez correctPlace, co znamena
+        //spravnu ulicu, aku ma pouzivatel hladat
         val streetViewPanoramaFragment =
             supportFragmentManager.findFragmentById(R.id.guess_Street_FragmentView)
                     as SupportStreetViewPanoramaFragment?
@@ -47,6 +49,7 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
             streetView = it
         }
 
+        //interakcia pouzivatela s appkou
         val mapFragment =
             supportFragmentManager.findFragmentById(R.id.map_Fragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
@@ -58,7 +61,7 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
         binding?.closeMap?.setOnClickListener {
             SlideActivity.slideDown(mapView)
         }
-
+        //Logika celeho "quizu"
         binding?.markPlaceButton?.setOnClickListener {
             if (selectedPlace != null) {
                 googleMapClass.addBlueMarker(correctPlace)
@@ -110,7 +113,7 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
 
         onMapClick()
     }
-
+    //umoznuje vyberat miesto na mape a aktualizuje sa pri kazdom vybere UI
     private fun onMapClick() {
         mGoogleMap?.setOnMapClickListener {
             selectedPlace = it
@@ -151,7 +154,7 @@ class GuessPlayActivity : AppCompatActivity(), OnMapReadyCallback {
         )
         setPlaceList.add(place)
     }
-
+    //Ak test skonci, data, ktore zozbieralo od pouzivatela sa posiela do SummaryActivity a zobrazia sa pouzivatelovi ako vysledok jeho quizu
     private fun gameOver() {
         val intent = Intent(this, SummaryActivity::class.java)
 

@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
 
+//Prenesie data medzi roznymi aktivitami
 data class ParcelModel(
     val correctPlace: LatLng?,
     val guessedPlace: LatLng?,

@@ -9,6 +9,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 
+//Cela logika "databazy" appky. SummaryActivity prebera data z roznych aktivit ako je SummaryAdapter, ParcelModel a taktiez
+//interaktuje s xml subormi na zaklade ich preddefinovanych tried
 class SummaryActivity : AppCompatActivity(), OnMapReadyCallback {
     private var binding:ActivitySummaryBinding? = null
     private lateinit var dataList: ArrayList<ParcelModel>

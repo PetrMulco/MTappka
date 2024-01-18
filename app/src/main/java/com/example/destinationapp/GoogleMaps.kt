@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
+//Pracuje s prvkami mapy, vyžaduje prístup k zdrojom a službám appky (GoogleMap a Context)
 class GoogleMaps(private val mGoogleMap: GoogleMap?, private val context:Context) {
 
     private var correctPlace = LatLng(0.0, 0.0)
@@ -33,7 +34,8 @@ class GoogleMaps(private val mGoogleMap: GoogleMap?, private val context:Context
         this.correctPlace = answer
     }
 
-
+    //vypocita skutocnu vzdialenost medzi vybranym a spravnym miestom
+    //Vyuziva Location.distanceBetween API, ktora zobrazuje pribliznu vzdialenost v metroch
     fun getRealDistance():Int {
         val result = FloatArray(1)
         Location.distanceBetween(
@@ -57,10 +59,7 @@ class GoogleMaps(private val mGoogleMap: GoogleMap?, private val context:Context
         mGoogleMap?.addMarker(MarkerOptions().position(position).icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_pin)))
     }
 
-    fun addRedMarker(position: LatLng) {
-        mGoogleMap?.addMarker(MarkerOptions().position(position).icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)))
-    }
-
+    //Pomocka pre pouzivatela, ktora zobrazuje "napovedu" pre spravne miesto
     fun addCircle() {
         val latValue = correctPlace.latitude
         val lngValue = correctPlace.longitude
@@ -73,7 +72,7 @@ class GoogleMaps(private val mGoogleMap: GoogleMap?, private val context:Context
         zoomCameraOnMap(position, 10f)
     }
 
-
+    //Nastavuje kameru tak, aby bolo vidiet vybrane miesto pouzivatelom a spravne miesto
     fun zoomCameraOnMap() {
         val builder = LatLngBounds.builder()
         builder.include(selectedPlace!!)
